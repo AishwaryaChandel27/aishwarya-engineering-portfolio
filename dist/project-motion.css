@@ -1,0 +1,41 @@
+/* Project-specific motion, activated only while cards are on screen. */
+#projects .project-card{--tilt-x:0deg;--tilt-y:0deg;--lift:0px;transform:perspective(900px) translateY(var(--lift)) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));transition:transform .22s ease-out,box-shadow .25s,border-color .25s;position:relative}
+#projects .project-card:hover,#projects .project-card:focus-within{--lift:-5px;box-shadow:6px 9px 0 #d7c8ed;border-color:#9680b4}
+#projects .project-card.project-enter{animation:project-arrive .65s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--enter-delay,0ms)}
+.project-visual::after{content:'';position:absolute;inset:-60%;background:linear-gradient(115deg,transparent 43%,#fff7 49%,transparent 56%);transform:translateX(-80%);pointer-events:none;opacity:0}
+.project-card:hover .project-visual::after,.project-card:focus-within .project-visual::after{animation:project-sheen .85s ease-out}
+.project-links button{transition:color .2s,letter-spacing .2s}.project-links button:hover,.project-links button:focus-visible{letter-spacing:.25px;color:#4d208e}
+.preview-aura .mini-search{position:relative;overflow:hidden}.preview-aura .mini-search::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,#b69ce858,transparent);animation:search-sweep 5s ease-in-out infinite;pointer-events:none}
+.preview-aura .mini-paper{animation:paper-highlight 5s ease-in-out infinite}.preview-aura .mini-paper:last-child{animation-delay:1s}
+.preview-vihaara .bars i{transform-origin:bottom;animation:chart-grow 3.8s ease-in-out infinite}.preview-vihaara .bars i:nth-child(2n){animation-delay:-.8s}.preview-vihaara .bars i:nth-child(3n){animation-delay:-1.6s}
+.preview-vihaara .mood-row span:first-child{animation:sun-breathe 4s ease-in-out infinite}
+.preview-data .data-line:not(:first-of-type){animation:row-review 4.8s ease-in-out infinite}.preview-data .data-line:nth-of-type(3){animation-delay:1s}.preview-data .data-line:nth-of-type(4){animation-delay:2s}
+.preview-vision .eyes{position:relative}.preview-vision .eyes::after{content:'';position:absolute;left:5%;right:5%;top:-15px;height:2px;background:#b67c27;box-shadow:0 0 10px #f7ef9b;animation:landmark-scan 4s ease-in-out infinite}.preview-vision .eye::after{animation:pupil-look 6s ease-in-out infinite}
+.preview-cloud .weather-symbol{animation:cloud-drift 5s ease-in-out infinite}.preview-cloud .weather-values>span{animation:weather-glow 5s ease-in-out infinite}.preview-cloud .weather-values>span:nth-child(2){animation-delay:1.5s}.preview-cloud .weather-values>span:nth-child(3){animation-delay:3s}
+.preview-invoice .receipt{animation:receipt-float 5s ease-in-out infinite}.preview-invoice .convert-arrow{animation:convert-hop 3s ease-in-out infinite}.preview-invoice .json-chip{animation:json-float 5s ease-in-out infinite}
+.preview-leads .score-ring{animation:score-pulse 4s ease-in-out infinite}.preview-leads .score-label{animation:paper-highlight 4s ease-in-out infinite}
+.preview-travel .travel-orb{animation:travel-sun 24s linear infinite}.preview-travel .travel-ticket{animation:ticket-float 4.5s ease-in-out infinite}
+.preview-focus .focus-preview>strong span{animation:focus-breathe 3s ease-in-out infinite}.preview-focus .focus-sun{animation:travel-sun 28s linear infinite}.preview-focus .focus-pill{animation:focus-halo 4s ease-in-out infinite}
+.project-card:not(.project-in-view) .project-visual *,.project-card:not(.project-in-view) .project-visual *::after{animation-play-state:paused!important}
+@keyframes project-arrive{from{opacity:.3;translate:0 20px;scale:.98}to{opacity:1;translate:0 0;scale:1}}
+@keyframes project-sheen{0%{opacity:0;transform:translateX(-50%)}20%{opacity:.65}100%{opacity:0;transform:translateX(50%)}}
+@keyframes search-sweep{0%,20%{transform:translateX(-110%)}65%,100%{transform:translateX(110%)}}
+@keyframes paper-highlight{0%,20%,100%{opacity:.72}40%,65%{opacity:1}}
+@keyframes chart-grow{0%,100%{transform:scaleY(.75)}50%{transform:scaleY(1)}}
+@keyframes sun-breathe{50%{transform:translateY(-3px) rotate(12deg)}}
+@keyframes row-review{0%,15%,75%,100%{background:transparent}30%,50%{background:#fff9}}
+@keyframes landmark-scan{0%,100%{transform:translateY(0);opacity:.3}50%{transform:translateY(65px);opacity:.85}}
+@keyframes pupil-look{0%,100%{transform:translateX(0)}35%{transform:translateX(-4px)}70%{transform:translateX(4px)}}
+@keyframes cloud-drift{0%,100%{transform:translate(-7px,0)}50%{transform:translate(7px,-5px)}}
+@keyframes weather-glow{0%,100%{opacity:.7}40%{opacity:1}}
+@keyframes receipt-float{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(-5deg) translateY(-5px)}}
+@keyframes json-float{0%,100%{transform:rotate(5deg) translateY(0)}50%{transform:rotate(3deg) translateY(4px)}}
+@keyframes convert-hop{0%,65%,100%{transform:translate(0,0)}35%{transform:translate(5px,-5px)}}
+@keyframes score-pulse{0%,100%{box-shadow:0 0 0 0 #6a8b3222}50%{box-shadow:0 0 0 9px #6a8b3200}}
+@keyframes travel-sun{to{transform:rotate(360deg)}}
+@keyframes ticket-float{50%{transform:translateY(-4px) rotate(-1deg)}}
+@keyframes focus-breathe{50%{opacity:.35}}
+@keyframes focus-halo{50%{box-shadow:0 0 0 5px #b08ec11a}}
+body.motion-paused #projects .project-card{transform:none;transition:none;animation:none;translate:none;scale:none;opacity:1}
+@media(prefers-reduced-motion:reduce){#projects .project-card,#projects .project-card * ,#projects .project-card *::after{animation:none!important;transition:none!important}#projects .project-card{transform:none!important;translate:none;scale:none;opacity:1}}
+@media(hover:none){#projects .project-card:hover{--lift:0px;box-shadow:none}}
