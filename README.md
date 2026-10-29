@@ -4,7 +4,7 @@ A complete, responsive portfolio for AI applications, Python automation, data wo
 
 ## Run locally
 
-No build step, framework dependencies, API keys or backend are required. With Python 3 installed, run from the repository root:
+No framework dependencies, API keys or backend are required. The deployment build validates the committed static files. With Python 3 installed, run from the repository root:
 
 ```sh
 python -m http.server 8000 --directory dist
@@ -34,11 +34,26 @@ Open http://localhost:8000. Serve `dist` as the web root; opening the HTML direc
 | `dist/project-motion.js`, `dist/project-motion.css` | Gallery animation and visibility handling |
 | `docs/` | Design concepts, branding drafts and QA notes |
 
-## Deploy
+## Deploy to Vercel
 
-Upload the contents of `dist` to a static host, or configure its publish/output directory as `dist` with no build command. The source files themselves are the deployable files. When moving to a new domain, update canonical/social URLs in `index.html`, `robots.txt` and `sitemap.xml`. GitHub Pages project URLs use a repository subpath; adjust root-relative asset links before deploying there.
+Import this repository and select the `main` branch. Keep **Root Directory** at the repository root (blank or `.`), not `dist`. The committed `vercel.json` sets:
 
-The existing Sites deployment is https://aishwarya-engineering-studio.finejam2048.chatgpt.site and currently requires owner access. This repository contains the complete portable site source on `main`. It does not change the Sites audience.
+| Setting | Value |
+| --- | --- |
+| Framework Preset | Other (`framework: null`) |
+| Install Command | Skipped; no dependencies |
+| Build Command | `npm run build` |
+| Output Directory | `dist` |
+
+`npm run build` checks the HTML pages, JavaScript syntax, local asset paths and internal anchors. It validates the existing `dist` folder; it does not generate or delete the site. `npm run check` runs the same validation locally. Node.js and npm are the only build prerequisites.
+
+These file-based settings override the equivalent Vercel dashboard build settings. The Root Directory is a dashboard setting: leave it blank or `.` so Vercel can find `vercel.json` and `package.json`. If an existing project was imported with `dist` as its root, correct that setting and redeploy the latest `main` commit.
+
+**Why this matters:** the homepage is `dist/index.html`. Publishing the repository root can produce a successful deployment with a missing homepage and broken root-relative assets. Publishing `dist` makes `/`, `/app.js`, `/style.css` and `/privacy.html` resolve correctly. Unknown URLs use `dist/404.html`; there is no catch-all rewrite that hides missing files.
+
+For another static host, upload the contents of `dist` or set its publish directory to `dist`. When changing domains, update canonical/social URLs in `dist/index.html`, `dist/robots.txt` and `dist/sitemap.xml`. GitHub Pages project URLs use a repository subpath; adjust root-relative links before deploying there.
+
+The separate Sites deployment is https://aishwarya-engineering-studio.finejam2048.chatgpt.site and requires owner access. It is independent of Vercel.
 
 GitHub repository: https://github.com/AishwaryaChandel27/aishwarya-engineering-portfolio
 

@@ -75,3 +75,10 @@ Validation: Node syntax checks passed for app.js and bots.js; diff whitespace ch
 ## Project animation revision — 27 October 2026
 Added nine project-specific preview animations, bounded pointer tilt, hover/focus sheen and staggered entrances. IntersectionObserver pauses offscreen preview animations; project filter replacements are observed. Existing motion-pause and OS reduced-motion choices apply.
 Validation: JS syntax and diff checks passed; CSS brace balance and asset references checked. A Node VM test with DOM mocks passed reveal initialization, bounded pointer tilt, reset, manual pause, reduced-motion guard, filter replacement and offscreen class behavior. This is logic validation, not browser rendering validation. Browser visual QA remains unavailable following the account-usage approval-review block; no new visual test result is claimed.
+
+## Vercel deployment repair — 29 October 2026
+The GitHub source had no Vercel config or npm build entry point. Its homepage lives at `dist/index.html`; with the default static root set to `.`, Vercel can report a successful deployment while the homepage is missing. The existing GitHub Vercel status was `success`; authenticated deployment logs were unavailable, so a specific dashboard error was not reproduced.
+
+Added root `vercel.json` selecting the Other preset, skipping dependency installation, running `npm run build`, and publishing only `dist`. Added a dependency-free package manifest/lockfile and build validation for HTML IDs, internal anchors, local asset references, and JavaScript syntax. Documented the required repository-root setting and ignored local `.vercel` metadata.
+
+Validation: `npm run build` passed for 3 HTML pages, 3 JavaScript files and 26 local references. HTTP smoke checks against the configured output directory returned 200 with appropriate content types for the homepage, privacy page, all CSS/JS and image assets; a missing asset returned 404. These checks validate the static output; Vercel dashboard access requires sign-in.

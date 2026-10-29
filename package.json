@@ -1,0 +1,10 @@
+{
+  "name": "aishwarya-engineering-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive static portfolio with animated project previews and original SVG mascots",
+  "scripts": {
+    "build": "node scripts/validate.mjs",
+    "check": "node scripts/validate.mjs"
+  }
+}
